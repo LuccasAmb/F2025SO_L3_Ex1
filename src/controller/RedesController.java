@@ -33,7 +33,7 @@ public class RedesController {
 
 		if (ip == null) {
 			System.err.println("Falha ao obter a configuração de IP.");
-		}else {
+		}else if (os.contains("Windows")){
 			String ipLine[] = ip.split("\\R");
 			StringBuffer adapters = new StringBuffer();
 			String adaptador = "";
@@ -54,6 +54,27 @@ public class RedesController {
 			
 			System.out.println(adapters);
 				
+		}else if (os.contains("Linux")) {
+			String ipLine[] = ip.split("\\R");
+			StringBuffer adapters = new StringBuffer();
+			String adaptador = "";
+			String ipv4[];
+			for(String linha : ipLine) {
+				int cont = 0;
+				if(linha.contains("flags")) {
+					cont++;
+					adaptador = linha.split(":")[0];
+				}
+				if(linha.contains("inet") && linha.contains("netmask")) {
+					ipv4 = linha.replace(" ", "").split("net");
+					adapters.append("Adaptador: " + adaptador + " \n IPV4: " + ipv4[1] + "\n");
+				}else {
+					cont--;
+				}
+			}
+			
+			System.out.println(adapters);
+			
 		}
 	}
 
@@ -115,9 +136,9 @@ public class RedesController {
 		}else if (os.contains("Linux")){
 			String ping = readProcess(callProcess("ping -4 -c 10 www.google.com.br"));
 			for(String linha : ping.split("\\R")) {
-				if(linha.contains("Average")) {
-					String[] tempos = linha.split("=");
-					System.out.println("Tempo médio: " + tempos[3]);
+				if(linha.contains("avg")) {
+					String[] tempos = linha.split("/");
+					System.out.println("Tempo médio: " + tempos[4] + "ms");
 				}
 			}
 		}

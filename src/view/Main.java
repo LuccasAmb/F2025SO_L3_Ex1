@@ -11,8 +11,8 @@ public class Main {
 		//redes.callProcess("regedit.exe");
 		//System.out.println(redes.readProcess(redes.callProcess("ping -4 -n 10 www.google.com.br")));
 		//System.out.println(redes.getIP());
-		//redes.getIP();
-		redes.showPing();
+		redes.getIP();
+		//redes.showPing();
 	}
 
 }
