@@ -1,18 +1,30 @@
 package view;
 
+import javax.swing.JOptionPane;
+
 import controller.RedesController;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		//System.getProperties().forEach((k, v) -> System.out.println(k + " = " + v));
 		RedesController redes = new RedesController();
-		//redes.callProcess("regedit.exe");
-		//System.out.println(redes.readProcess(redes.callProcess("ping -4 -n 10 www.google.com.br")));
-		//System.out.println(redes.getIP());
-		redes.getIP();
-		//redes.showPing();
+		int op;
+		
+		do {
+			op = Integer.parseInt(JOptionPane.showInputDialog("Digite uma opção: \n 1- Mostrar IP \n 2- Mostrar ping \n 9- Finalizar"));
+			
+			switch(op) {
+			case 1:
+				redes.getIP();
+				break;
+			case 2:
+				redes.showPing();
+				break;
+			}
+		} while(op != 9);
+		
+		
 	}
 
 }
